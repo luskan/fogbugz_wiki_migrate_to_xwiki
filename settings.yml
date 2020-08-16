@@ -1,0 +1,22 @@
+dir_to_rm: xwiki
+servers:
+  - url:  https://fogbugz.example1.com/
+    attachment_destination_url: http://docs.example.com/wiki/internal/view/
+    api:  7
+    email:  john_doe@example.pl
+    password: some_password
+    token:  r1olduqn1qk5nft4m5t34naaar1u2f
+    auth_user:  johny
+    auth_password:  djf89fsd9
+    wiki_dir_name: 0. FBWiki
+    wiki_dir_name_parent: xwiki
+    wiki_root_name: FB1
+  - url:  https://example2.fogbugz.com/
+    attachment_destination_url: http://docs.example.pl/wiki/internal/view/
+    api:  8
+    email:  some_guy@example.pl
+    password: flsdkjfds9
+    token:  phq6randfidnfds95afdsjdjfsdgk4fdshhd03
+    wiki_dir_name: 0. FBWiki2
+    wiki_dir_name_parent: xwiki
+    wiki_root_name: FB2
