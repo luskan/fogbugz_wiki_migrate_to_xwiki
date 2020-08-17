@@ -32,10 +32,8 @@ from xml.dom import minidom
 from pycookiecheat import chrome_cookies
 
 import requests
-import datetime
 
 from fogbugz_v1 import FogBugz
-from datetime import datetime
 
 userhome = os.path.expanduser('~')
 
@@ -47,26 +45,6 @@ elif sys.platform.startswith('win32'):
     cookies_path = userhome + r'\AppData\Local\Google\Chrome\User Data\Profile 2\Cookies'
 else:
     cookies_path = userhome + r'/.config/google-chrome/Default/Cookies'
-
-def store_wiki(db, total, wiki, article, full_article):
-    print('#%s %s,%s,%s,%s - %s %s'
-          % (total,
-             wiki.ixWiki.string, wiki.sWiki.string, wiki.sTagLineHTML.string,
-             wiki.ixWikiPageRoot.string,
-             article.ixWikiPage.string, str(article.sHeadline.string)))
-
-    cursor = db.cursor()
-    cursor.execute('''INSERT INTO articles(ix_wiki, ix_wiki_page_root, s_wiki, s_tag_line_html,
-                           ix_wiki_page, s_head_line,
-                           s_body)
-                      VALUES(?,?,?,?,?,?,?)''',
-                   (
-                       wiki.ixWiki.string, wiki.ixWikiPageRoot.string,
-                       wiki.sWiki.string, wiki.sTagLineHTML.string,
-                       article.ixWikiPage.string, str(article.sHeadline.string),
-                       full_article.sBody.string
-                   ))
-    db.commit()
 
 def dump_to_xwiki(config):
     """
@@ -420,23 +398,13 @@ def dump_to_xwiki(config):
 
     #
     # Save package.xml
-    '''
-    myfile = open("./"+wiki_dir_name_parent + os.sep + "package.xml", "wb")
-    packageXml = ET.tostring(package, encoding='unicode')
-    x = etree.parse(StringIO(packageXml))
-    packageXml = etree.tostring(x, pretty_print=True)
-    #packageXmlReparsed = minidom.parseString(packageXml)
-    #packageXml = packageXmlReparsed.toprettyxml(indent="\t")
-    myfile.write(packageXml)
-    '''
-    ##
     mydata = prettify(package)
     #mydata = ET.tostring(package, encoding='unicode')
     #reparsed = minidom.parseString(mydata)
     #mydata = reparsed.toprettyxml(indent="\t")
     myfile = open("./"+wiki_dir_name_parent + os.sep + "package.xml", "w")
     myfile.write(mydata)
-    ##
+
 
 def prettify(root):
     for elem in root.iter('*'):
@@ -450,7 +418,7 @@ def prettify(root):
     return reparsed.toprettyxml(indent="\t")
 
 def main():
-    configs = yaml.safe_load(open("./fogbugz_downloader_settings.yml"))
+    configs = yaml.safe_load(open("./settings.yml"))
 
     if configs.get("dir_to_rm", None):
         if os.path.isdir("./" + configs['dir_to_rm']):

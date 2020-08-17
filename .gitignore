@@ -1,1 +1,5 @@
 /.idea
+/venv/
+/xwiki/
+*.cpython-37.pyc
+*.iml
